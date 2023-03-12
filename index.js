@@ -1,7 +1,15 @@
-const sharp = require('sharp');
+const sharp = require("sharp");
+const { getFileName } = require("./utils/utility-functions");
 
-sharp("images/image_to_trim.jpg").trim({
-  background: "white",
-  threshold: 11,
-})
-.toFile("output.png");
+function trimImage(imageFilePath) {
+  const fileName = getFileName(imageFilePath);
+
+  return sharp(imageFilePath)
+    .trim({
+      background: "white",
+      threshold: 11,
+    })
+    .toFile(`output/trimmed_${fileName}`);
+}
+
+trimImage("input/image.jpg");
