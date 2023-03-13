@@ -22,7 +22,7 @@ function trimImage(imageFilePath) {
   return sharp(imageFilePath)
     .trim({
       background: "white",
-      threshold: 11,
+      threshold: 3,
     })
     .extend({
       top: 40,
