@@ -1,3 +1,7 @@
+# ours
+output/*
+!output/.gitkeep 
+
 # Logs
 logs
 *.log
