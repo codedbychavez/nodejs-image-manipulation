@@ -24,6 +24,13 @@ function trimImage(imageFilePath) {
       background: "white",
       threshold: 11,
     })
+    .extend({
+      top: 40,
+      right: 40,
+      bottom: 40,
+      left: 40,
+      background: 'white'
+    })
     .toFile(`./output/trimmed_${fileName}`);
 }
 
