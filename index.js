@@ -34,16 +34,15 @@ function trimImage(imageFilePath) {
   */
   return sharp(imageFilePath)
     .trim({
-      background: "white",
       threshold: 3,
     })
-    .extend({
-      top: 40,
-      right: 40,
-      bottom: 40,
-      left: 40,
-      background: 'white'
-    })
+    // .extend({
+    //   top: 40,
+    //   right: 40,
+    //   bottom: 40,
+    //   left: 40,
+    //   background: 'white'
+    // })
     .toFile(`./output/trimmed_${fileName}`);
 }
 
