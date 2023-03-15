@@ -33,19 +33,37 @@ function trimImage(imageFilePath) {
 
   */
   return sharp(imageFilePath)
-    .trim({
-      threshold: 3,
-    })
-    // .extend({
-    //   top: 40,
-    //   right: 40,
-    //   bottom: 40,
-    //   left: 40,
-    //   background: 'white'
+    // .trim({
+    //   // threshold: 15,
+    //   background: "white",
+      
     // })
-    .toFile(`./output/trimmed_${fileName}`);
+    .extend({
+      top: 40,
+      right: 40,
+      bottom: 40,
+      left: 40,
+      background: 'white'
+    }).trim(
+      {
+        background: "white",
+        threshold: 2
+      }
+    )
+    .toFile(`./output/trimmed_${fileName}`, function(err, info) {
+      console.log(info);
+    });
 }
 
-IMAGE_LIST.map((path)=> {
-  trimImage(`input/${path}`);
-})
+trimImage('./input/color-image.png');
+
+// IMAGE_LIST.map((path)=> {
+//   trimImage(`input/${path}`);
+// })
+
+// const image = sharp('./input/color-image.png');
+
+// image.metadata()
+// .then(function(metadata) {
+//   console.log(metadata);
+// })
