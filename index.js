@@ -18,22 +18,52 @@ const IMAGE_LIST = [
 
 function trimImage(imageFilePath) {
   const fileName = getFileName(imageFilePath);
-  
+
+  /* 
+    1. Check if the image has white around the edges
+        - NOTES to myself:
+        + I think sharp uses the top-left pixel of the image as default if we don't pass a color to the background property
+          + If the above approximation is not white, do not extend.
+          + If it is white/ close to white, let'e extend the image.
+
+          Further steps, DO after above steps are completed.
+          1. Before extending, determine the size of the image.
+          2. Based on the size of the image, determine the padding percentage to apply to the image.
+              - Gregg has an idea for this, check trello ticket comments
+
+  */
   return sharp(imageFilePath)
-    .trim({
-      background: "white",
-      threshold: 3,
-    })
+    // .trim({
+    //   // threshold: 15,
+    //   background: "white",
+      
+    // })
     .extend({
       top: 40,
       right: 40,
       bottom: 40,
       left: 40,
       background: 'white'
-    })
-    .toFile(`./output/trimmed_${fileName}`);
+    }).trim(
+      {
+        background: "white",
+        threshold: 2
+      }
+    )
+    .toFile(`./output/trimmed_${fileName}`, function(err, info) {
+      console.log(info);
+    });
 }
 
-IMAGE_LIST.map((path)=> {
-  trimImage(`input/${path}`);
-})
+trimImage('./input/color-image.png');
+
+// IMAGE_LIST.map((path)=> {
+//   trimImage(`input/${path}`);
+// })
+
+// const image = sharp('./input/color-image.png');
+
+// image.metadata()
+// .then(function(metadata) {
+//   console.log(metadata);
+// })
